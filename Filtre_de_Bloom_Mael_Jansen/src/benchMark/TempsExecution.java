@@ -17,7 +17,7 @@ import java.util.Random;
  *
  * @author majansen
  */
-public class TempsExecution {
+public class TempsExecution implements IBenchmark{
     
     private final TypeBloom TYPE;
     private final ArrayList<Integer> VALEURS;
@@ -42,6 +42,7 @@ public class TempsExecution {
      * d'ensemble choisis
      * @return un filtre de bloom
      */
+    @Override
     public IBloom remplirEnsemble(){
         switch(TYPE){
             case TABLEAU :

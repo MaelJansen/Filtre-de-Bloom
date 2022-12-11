@@ -16,6 +16,8 @@ public class Benchmark {
     
     private TempsExecution temps;
     public HashMap<TypeBloom, Long> valeursTemps = new HashMap<>();
+    private TauxErreur taux;
+    public HashMap<TypeBloom, Double> valeursErreurs = new HashMap<>();
     private ArrayList<TypeBloom> types = new ArrayList<>();
     private int k;
     private int taille; 
@@ -31,15 +33,25 @@ public class Benchmark {
         this.k = k;
         this.taille = taille;
         this.nbValeurs = nbValeurs;
+        ajouterTypes();
         calculerTemps();
+        calculerTauxFauxPositifs();
     }
     
     private void calculerTemps(){
-        ajouterTypes();
         for (TypeBloom t : types){
             temps = new TempsExecution(t, k, taille, nbValeurs);
             if (!valeursTemps.containsKey(t)){
                 valeursTemps.put(t, temps.tempsRecherche()/1000);
+            }
+        }
+    }
+    
+    private void calculerTauxFauxPositifs(){
+        for (TypeBloom t : types){
+            taux = new TauxErreur(t, taille, nbValeurs, 1000);
+            if (!valeursErreurs.containsKey(t)){
+                valeursErreurs.put(t, taux.tauxFauxPositifs());
             }
         }
     }
