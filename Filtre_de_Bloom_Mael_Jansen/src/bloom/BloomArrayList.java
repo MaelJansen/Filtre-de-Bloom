@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class BloomArrayList implements IBloom {
     
-    private ArrayList<Integer> array = new ArrayList<>();
+    private final ArrayList<Integer> ARRAY = new ArrayList<>();
     
     public BloomArrayList(int m){
         initialiserBloomArray(m);
@@ -20,7 +20,7 @@ public class BloomArrayList implements IBloom {
     
     private void initialiserBloomArray(int m){
         for(int i=0; i<m; i++){
-            array.add(0);
+            ARRAY.add(0);
         }
     }
     
@@ -28,7 +28,7 @@ public class BloomArrayList implements IBloom {
     public boolean appartientAEnsemble(int message) {
         boolean trouve = true;
         for (Integer i : Hashage.tab){
-            if(array.get(Hashage.Hashage(message, array.size(), i)) != 1){
+            if(ARRAY.get(Hashage.Hashage(message, ARRAY.size(), i)) != 1){
                 trouve = false;
             }
         }
@@ -37,14 +37,14 @@ public class BloomArrayList implements IBloom {
 
     @Override
     public void ajouterValeurBooleen(int resHashage) {
-        array.remove(resHashage);
-        array.add(resHashage, 1);
+        ARRAY.remove(resHashage);
+        ARRAY.add(resHashage, 1);
     }
     
     public void remplirArray(ArrayList<Integer> valeurs){
         for (Integer val : valeurs){
             for (Integer i : Hashage.tab){
-                ajouterValeurBooleen(Hashage.Hashage(val, array.size(), i));
+                ajouterValeurBooleen(Hashage.Hashage(val, ARRAY.size(), i));
             }
         }
     }

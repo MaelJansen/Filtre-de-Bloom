@@ -8,8 +8,7 @@ package bloom;
  *
  * @author majansen
  */
-public interface IBloom {
-    
+public interface IBloom {  
     public boolean appartientAEnsemble(int message);
     public void ajouterValeurBooleen(int resHashage);
 }

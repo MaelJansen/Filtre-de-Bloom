@@ -12,12 +12,12 @@ import java.util.ArrayList;
  */
 public class BloomTableau implements IBloom{
     
-    private boolean[] tab;
+    private final boolean[] TAB;
     public static int tailleTableau;
     
     public BloomTableau(int m){
         tailleTableau = m;
-        tab = new boolean[m];
+        TAB = new boolean[m];
         initialisationBloomTableau();
     }
     
@@ -31,7 +31,7 @@ public class BloomTableau implements IBloom{
     public boolean appartientAEnsemble(int message){
         boolean trouve = true;
         for (Integer i : Hashage.tab){
-            if (!tab[Hashage.Hashage(message, tailleTableau, i)]){
+            if (!TAB[Hashage.Hashage(message, tailleTableau, i)]){
                 trouve = false;
             }
         }
@@ -40,7 +40,7 @@ public class BloomTableau implements IBloom{
     
     @Override
     public void ajouterValeurBooleen(int resHashage){
-        tab[resHashage] = true;
+        TAB[resHashage] = true;
     }
     
     /**
@@ -48,8 +48,8 @@ public class BloomTableau implements IBloom{
      * du filtre de bloom a false
      */
     private void initialisationBloomTableau(){
-        for(int i=0; i<tab.length; i++){
-            tab[i] = false;
+        for(int i=0; i<TAB.length; i++){
+            TAB[i] = false;
         }
     }
     

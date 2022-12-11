@@ -1,5 +1,7 @@
 package main;
 
+import benchMark.Benchmark;
+import benchMark.TauxErreur;
 import benchMark.TempsExecution;
 import bloom.BloomArrayList;
 import bloom.BloomLinkedList;
@@ -7,6 +9,8 @@ import bloom.BloomTableau;
 import bloom.Hashage;
 import bloom.TypeBloom;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Random;
 
 /*
@@ -24,39 +28,23 @@ public class main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int k = 100;
-        int m = 10000;
-        int nbValeurs = 50;
-        Hashage.initialiser(4);
+        int k = 5;
+        int m = 100;
         
-        BloomTableau bt = new BloomTableau(m);
-        BloomArrayList ba = new BloomArrayList(m);
-        BloomLinkedList bl = new BloomLinkedList(m);
-        
-        ArrayList<Integer> valeurs = valeursTest(nbValeurs);
-        
-        bt.remplirTableau(valeurs);
-        ba.remplirArray(valeurs);
-        bl.remplirLinkedList(valeurs);
-        
-        TempsExecution teArray = new TempsExecution(TypeBloom.ARRAYLIST, k, 10000, valeurs);
-        TempsExecution teTableau = new TempsExecution(TypeBloom.TABLEAU, k, 10000, valeurs);
-        TempsExecution teLinked = new TempsExecution(TypeBloom.LINKEDLIST, k, 10000, valeurs);
-        
-        System.out.println("Temps pour la recherche de toutes les valeurs pour " + k + " fonction de hashage, " + m + " place dans l'ensemble de valeurs et " + nbValeurs +" valeurs) :");
-        System.out.println("ArrayList : " + teArray.tempsRecherche() + " nanoseconds");
-        System.out.println("Tableau : " + teTableau.tempsRecherche() + " nanoseconds");
-        System.out.println("LinkedList : " + teLinked.tempsRecherche() + " nanoseconds");
-        
+        benchmarkTemps(k,m);
     }
     
-    public static ArrayList<Integer> valeursTest(int nb){
-        ArrayList<Integer> valeurs = new ArrayList<>();
-        Random rand = new Random();
-        for (int i=0; i<nb; i++){
-          int r = rand.nextInt(1000);
-          valeurs.add(r);
-        }
-        return valeurs;
+    public static void benchmarkTemps(int k, int m){
+        int i = 0;
+        System.out.println("Benchmark avec : " + k + " fonctions de hashage et " + m + " emplacements dans les ensembles");
+        while (i<=500){
+            System.out.println("-----------------------------");
+            System.out.println("Test pour " + i + " valeurs :");
+            Benchmark bm = new Benchmark(k, m, i);
+            for (Map.Entry type : bm.valeursTemps.entrySet()) {
+                System.out.println("temps d'execution pour " + type.getKey() + " : " + type.getValue() + " microsecondes");
+            }
+            i = i+50;
+        } 
     }
 }

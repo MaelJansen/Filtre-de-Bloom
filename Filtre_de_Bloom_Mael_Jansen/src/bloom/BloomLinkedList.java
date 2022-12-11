@@ -13,7 +13,7 @@ import java.util.LinkedList;
  */
 public class BloomLinkedList implements IBloom{
     
-    private LinkedList<Integer> linkedList = new LinkedList<>();
+    private final LinkedList<Integer> LINKEDLIST = new LinkedList<>();
     
     public BloomLinkedList(int m){
         initialiserBloomLinkedList(m);
@@ -21,7 +21,7 @@ public class BloomLinkedList implements IBloom{
     
     private void initialiserBloomLinkedList(int m){
         for(int i=0; i<m; i++){
-            linkedList.add(0);
+            LINKEDLIST.add(0);
         }
     }
 
@@ -29,7 +29,7 @@ public class BloomLinkedList implements IBloom{
     public boolean appartientAEnsemble(int message) {
         boolean trouve = true;
         for (Integer i : Hashage.tab){
-            if(linkedList.get(Hashage.Hashage(message, linkedList.size(), i)) != 1){
+            if(LINKEDLIST.get(Hashage.Hashage(message, LINKEDLIST.size(), i)) != 1){
                 trouve = false;
             }
         }
@@ -38,14 +38,14 @@ public class BloomLinkedList implements IBloom{
 
     @Override
     public void ajouterValeurBooleen(int resHashage) {
-        linkedList.remove(resHashage);
-        linkedList.add(resHashage, 1);
+        LINKEDLIST.remove(resHashage);
+        LINKEDLIST.add(resHashage, 1);
     }
     
     public void remplirLinkedList(ArrayList<Integer> valeurs){
         for (Integer val : valeurs){
             for (Integer i : Hashage.tab){
-                ajouterValeurBooleen(Hashage.Hashage(val, linkedList.size(), i));
+                ajouterValeurBooleen(Hashage.Hashage(val, LINKEDLIST.size(), i));
             }
         }
     }

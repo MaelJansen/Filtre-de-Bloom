@@ -30,6 +30,7 @@ public final class Hashage {
      * La première fonction de hashage
      * @param valeur la valeur a hasher
      * @param m la taille du tableau
+     * @param premier le nombre premier utiliser pour la fonction de hashage
      * @return le resultat du hashage
      */
     public static int Hashage(int valeur, int m, int premier){
